@@ -1,8 +1,8 @@
-install.packages("readxl")   # If not installed yet
+install.packages("readxl")
 install.packages("ggplot2")
 library(readxl)
 library(ggplot2)
-densedata <- read_excel("C:/Users/skashyap/Downloads/wt_test.xlsx")
+densedata <- read_excel("your file path here")
 ggplot(densedata, aes(x = Y, color = Group, fill = Group)) + geom_density(alpha = 0.3) + labs(title = "Branch Lengths", x = "Branch Lengths", y = "Density") + theme_minimal()
 ggplot(densedata, aes(x = Y, color = Group, fill = Group)) +
   geom_density(alpha = 0.3) +
