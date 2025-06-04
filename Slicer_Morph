@@ -1,0 +1,72 @@
+#Script Editor to run selected code in Python Interactor in Slicer 5.8.0
+from qt import QDialog, QVBoxLayout, QTextEdit, QPushButton
+
+class ScriptEditor(QDialog):
+    def __init__(self, parent=None):
+        super(ScriptEditor, self).__init__(parent)
+        self.setWindowTitle("Mini Script Editor")
+        self.resize(600, 400)
+
+        layout = QVBoxLayout(self)
+        self.editor = QTextEdit()
+        layout.addWidget(self.editor)
+
+        self.runButton = QPushButton("Run Selected Code")
+        layout.addWidget(self.runButton)
+        self.runButton.clicked.connect(self.runSelectedCode)
+
+    def runSelectedCode(self):
+        code = self.editor.textCursor().selectedText().replace('\u2029', '\n')
+        try:
+            exec(code)
+        except Exception as e:
+            print("Error:", e)
+
+editor = ScriptEditor()
+editor.show()
+
+#Segmentation Code to run within script editor
+#Import volume as nrrd file and then write the name of the file in this text below (slicer.util.getNode.( 'YOUR VOLUME')
+
+n = slicer.util.getNode('YOUR VOLUME HERE')
+if not n:
+    print("Error: Node not found!")
+else:
+    # Create a new segmentation node
+    segmentationNode = slicer.mrmlScene.AddNewNodeByClass("vtkMRMLSegmentationNode")
+    segmentationNode.SetReferenceImageGeometryParameterFromVolumeNode(n)
+
+    # Set up the Segment Editor Widget and Node
+    segmentEditorWidget = slicer.qMRMLSegmentEditorWidget()
+    segmentEditorWidget.setMRMLScene(slicer.mrmlScene)
+    segmentEditorNode = slicer.mrmlScene.AddNewNodeByClass("vtkMRMLSegmentEditorNode")
+    segmentEditorWidget.setMRMLSegmentEditorNode(segmentEditorNode)
+    segmentEditorWidget.setSegmentationNode(segmentationNode)
+    segmentEditorWidget.setSourceVolumeNode(n)  # Updated method
+
+    # Add a new segment
+    addedSegmentIDcas = segmentationNode.GetSegmentation().AddEmptySegment("Segment_1")
+    segmentEditorNode.SetSelectedSegmentID(addedSegmentIDcas)
+
+    # Apply Otsu Thresholding
+    segmentEditorWidget.setActiveEffectByName("Threshold")
+    effect = segmentEditorWidget.activeEffect()
+    effect.setParameter("ThresholdMethod", "Otsu")  # Use Otsu method
+    effect.self().onApply()
+
+    # Remove small islands
+    segmentEditorWidget.setActiveEffectByName("Islands")
+    effect = segmentEditorWidget.activeEffect()
+    effect.setParameter("MinimumSize", "10500")  # Adjust size as needed
+    effect.setParameter("Operation", "REMOVE_SMALL_ISLANDS")
+    segmentEditorNode.SetOverwriteMode(slicer.vtkMRMLSegmentEditorNode.OverwriteNone)
+    effect.self().onApply()
+
+    # Split islands into separate segments
+    segmentEditorNode.SetSelectedSegmentID("Segment_1")
+    effect.setParameter("MinimumSize", "10500")
+    effect.setParameter("Operation", "SPLIT_ISLANDS_TO_SEGMENTS")
+    effect.self().onApply()
+
+#Manually pan through and keep the 3–4 largest complete cells per mouse
+Then Modules > Quantification > Segment Statistics > Create New Table as..YOUR VOLUME HERE > make sure Surface Area and Volume are checked, and export stats table.
