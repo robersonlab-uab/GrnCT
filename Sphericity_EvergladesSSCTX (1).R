@@ -1,6 +1,6 @@
 library(readxl)
-evergladess <- read_excel("C:/Users/snkas/Downloads/everglades_s.xlsx")
-datas = evergladess
+data <- read_excel("file/path/here")
+datas = data
 
 datas$Treatment <- as.factor(datas$Treatment)
 datas$Treatment <- relevel(datas$Treatment, ref = "WTGFP")
