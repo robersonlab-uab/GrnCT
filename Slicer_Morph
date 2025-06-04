@@ -68,5 +68,5 @@ else:
     effect.setParameter("Operation", "SPLIT_ISLANDS_TO_SEGMENTS")
     effect.self().onApply()
 
-#Manually pan through and keep the 3–4 largest complete cells per mouse
+#Manually pan through and keep the 3–4 largest complete cells per image
 Then Modules > Quantification > Segment Statistics > Create New Table as..YOUR VOLUME HERE > make sure Surface Area and Volume are checked, and export stats table.
