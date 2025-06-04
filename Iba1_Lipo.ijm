@@ -21,7 +21,7 @@ for (i = 0; i < fileList.length; i++) {
 
       
 
-        // Step 3: Identify and process the "C=2" channel
+        // Step 3: Identify and process the Microglial channel
         nameC2 = fileName + " - C=2";
         selectWindow(nameC2);
         print("Processing: " + nameC2);
@@ -53,14 +53,14 @@ for (i = 0; i < fileList.length; i++) {
             print("Warning: 'Drawing' image not found for " + nameC2);
         }
 
-        // Step 4: Identify and process the "C=1" channel
+        // Step 4: Identify and process the lipofuscin channel
         nameC1 = fileName + " - C=1";
         selectWindow(nameC1);
 
         // Z-Projection (Max Intensity)
         run("Z Project...", "projection=[Max Intensity]");
 		//setAutoThreshold("RenyiEntropy dark no-reset");
-        // Step 5: Apply ROIs onto C=1 Projection
+        // Step 5: Apply ROIs onto lipofuscin projection
         roiManager("Show All");
 
         // Step 6: Measure ROIs
@@ -76,4 +76,4 @@ for (i = 0; i < fileList.length; i++) {
     }
 }
 
-print("Processing complete!");
+print("Finished");
