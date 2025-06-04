@@ -1,6 +1,6 @@
 library(readxl)
-everglades <- read_excel("C:/Users/skashyap/Desktop/everglades_lipo.xlsx")
-data = everglades
+data <- read_excel("file/path/here")
+data = data
 data$A_Val[data$A_Val == 0] <- 0.0001
 data$Treatment <- as.factor(data$Treatment)
 data$Treatment <- relevel(data$Treatment, ref = "WTGFP")
