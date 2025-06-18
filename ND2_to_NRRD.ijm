@@ -28,9 +28,10 @@ for (i = 0; i < fileList.length; i++) {
 
         // Adjust brightness/contrast 
         run("Despeckle", "stack");
-		run("Remove Outliers...", "radius=3 threshold=50 which=Bright stack");
-        setMinAndMax(44, 221); // Adjust contrast values
-        run("Apply LUT", "stack");
+	run("Remove Outliers...", "radius=3 threshold=50 which=Bright stack");
+	run("Enhance Contrast", "saturated=0.35");
+	setMinAndMax(64, 820);
+	run("Apply LUT", "stack");
         
         // Construct output filename
         baseName = replace(fileList[i], ".tif", ""); // Remove extension
