@@ -20,7 +20,7 @@ in a mouse model of frontotemporal dementia." Published by Kashyap and Fox in 20
 
 ## Third-Party Resources
 
-The following libraries (in their respective folders) were used in analyses associated with this manuscript and are archived here for reproducibility. They are the property of their respective authors and are subject to their original licenses.
+The following libraries (in their corresponding folders) are the property of their respective authors and were used in analyses associated with this manuscript. They are archived here for reproducibility purposes.
 
 ### Keypoint MoSeq
 - **Source:** https://github.com/dattalab/keypoint-moseq
