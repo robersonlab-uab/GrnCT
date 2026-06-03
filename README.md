@@ -12,7 +12,7 @@ in a mouse model of frontotemporal dementia." Published by Kashyap and Fox in 20
 
 ### R Scripts
 - **Density_dist_branch.R** — Analysis of microglial density, distribution, and branching morphology
-- **LMEM_SSCTX.R** — Linear mixed effects model analysis of somatosensory cortex data
+- **LMEM_SSCTX.R** — Used in the preprinted version on BioRxiv (Fig 4). During reviews for publishing, our biostatistisian, Dr. Charles Murchison, elected to use a restricted maximum likelihood (RMEL) mixed-effects model with a Tukey's multiple comparison (the code listed here does not do the RMEL in the final version, but is kept here for transparency and record-keeping).
 - **Sphericity_SSCTX.R** — Quantification of microglial sphericity in somatosensory cortex
 
 ### 3D Morphology
